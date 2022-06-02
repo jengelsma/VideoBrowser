@@ -1,9 +1,18 @@
 import { Button, StyleSheet, View } from 'react-native';
+import React, { useEffect } from 'react';
 
 import { BaseRouter } from '@react-navigation/native';
-import React from 'react';
+import { getVideos } from '../api/YTServer'
 
 const VideoListScreen = ({ navigation }) => {
+
+  useEffect(() => {
+    getVideos((data) => {
+      console.log("received: ", data);
+    });
+  }, []);
+
+
   return (
     <View>
       <Button 
