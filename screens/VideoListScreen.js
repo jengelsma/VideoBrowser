@@ -1,4 +1,5 @@
-import { FlatList, StyleSheet, Text, View } from 'react-native';
+import { FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Image, ListItem } from "react-native-elements";
 import React, { useEffect, useState } from 'react';
 
 import { BaseRouter } from '@react-navigation/native';
@@ -17,9 +18,21 @@ const VideoListScreen = ({ navigation }) => {
 
   const renderVideo = ( { index, item}) => {
     return (
-      <View>
-        <Text> {item.snippet.title} </Text>
-      </View>
+      <TouchableOpacity
+        onPress={() => {
+          navigation.navigate("Video Viewer", item);
+        }}>
+        <ListItem key={index}>
+          <Image 
+            source={{ uri: item.snippet.thumbnails.default.url }}
+            style={{ width: 100, height: 55 }}
+          />
+          <ListItem.Content>
+            <ListItem.Title> {item.snippet.title} </ListItem.Title>
+          </ListItem.Content>
+          <ListItem.Chevron />
+        </ListItem>
+      </TouchableOpacity>
     );
   }
 
