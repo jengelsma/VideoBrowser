@@ -1,29 +1,33 @@
-import { FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { Image, ListItem } from "react-native-elements";
+import {
+  FlatList,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import { Image, ListItem } from '@rneui/themed';
 import React, { useEffect, useState } from 'react';
 
-import { BaseRouter } from '@react-navigation/native';
-import { getVideos } from '../api/YTServer'
+import { getVideos } from '../api/YTServer';
 
 const VideoListScreen = ({ navigation }) => {
-
   const [videos, setVideos] = useState([]);
 
   useEffect(() => {
-    getVideos((data) => {
-      // console.log("received: ", data);
+    getVideos('bears', (data) => {
       setVideos(data.items);
     });
   }, []);
 
-  const renderVideo = ( { index, item}) => {
+  const renderVideo = ({ index, item }) => {
     return (
       <TouchableOpacity
         onPress={() => {
-          navigation.navigate("Video Viewer", item);
-        }}>
+          navigation.navigate('Video Viewer', item);
+        }}
+      >
         <ListItem key={index}>
-          <Image 
+          <Image
             source={{ uri: item.snippet.thumbnails.default.url }}
             style={{ width: 100, height: 55 }}
           />
@@ -34,7 +38,7 @@ const VideoListScreen = ({ navigation }) => {
         </ListItem>
       </TouchableOpacity>
     );
-  }
+  };
 
   return (
     <View>
@@ -42,7 +46,7 @@ const VideoListScreen = ({ navigation }) => {
         data={videos}
         keyExtractor={(item) => item.id.videoId}
         extraData={videos}
-        renderItem={renderVideo} 
+        renderItem={renderVideo}
       />
     </View>
   );
@@ -51,11 +55,8 @@ const VideoListScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
-    width: "100%",
+    width: '100%',
   },
 });
 
-
-
 export default VideoListScreen;
-

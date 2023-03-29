@@ -22,11 +22,11 @@ YTServer.interceptors.request.use(
   }
 );
 
-export const getVideos = async (callback) => {
+export const getVideos = async (query, callback) => {
   const response = await YTServer.get(
-    `?key=${YT_KEY}&part=snippet&q=beekeeping&maxResults=25`
+    `?key=${YT_KEY}&part=snippet&q=${query}&maxResults=15&type=video`
   );
-  callback(response.data);  
+  callback(response.data);
 };
 
 export default YTServer;
