@@ -5,19 +5,24 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import { Image, ListItem } from '@rneui/themed';
+import { Image, Input, ListItem } from '@rneui/themed';
 import React, { useEffect, useState } from 'react';
 
 import { getVideos } from '../api/YTServer';
 
 const VideoListScreen = ({ navigation }) => {
   const [videos, setVideos] = useState([]);
+  const [searchStr, setSearchStr] = useState('');
 
   useEffect(() => {
-    getVideos('bears', (data) => {
-      setVideos(data.items);
-    });
-  }, []);
+    if (searchStr.length > 2) {
+      getVideos(searchStr, (data) => {
+        setVideos(data.items);
+      });
+    } else {
+      setVideos([]);
+    }
+  }, [searchStr]);
 
   const renderVideo = ({ index, item }) => {
     return (
@@ -42,6 +47,10 @@ const VideoListScreen = ({ navigation }) => {
 
   return (
     <View>
+      <Input
+        placeholder='Enter search terms'
+        onChangeText={(value) => setSearchStr(value)}
+      />
       <FlatList
         data={videos}
         keyExtractor={(item) => item.id.videoId}
