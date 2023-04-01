@@ -33,6 +33,27 @@ function StackNavigator() {
   );
 }
 
+function PlayLaterStackNavigator() {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name='PlayLaterVideos'
+        component={WatchLaterScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name='Video Viewer'
+        component={YTViewerScreen}
+        options={{
+          title: '',
+        }}
+      />
+    </Stack.Navigator>
+  );
+}
+
 export default function App() {
   return (
     <PlayLaterContextProvider>
@@ -54,7 +75,7 @@ export default function App() {
           />
           <Drawer.Screen
             name='WatchLater'
-            component={WatchLaterScreen}
+            component={PlayLaterStackNavigator}
             options={{
               title: 'Watch Later Videos',
               drawerIcon: ({ color, size }) => (
