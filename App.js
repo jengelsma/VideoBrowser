@@ -1,5 +1,6 @@
 import { Ionicons } from '@expo/vector-icons';
 import { NavigationContainer } from '@react-navigation/native';
+import PlayLaterContextProvider from './context/PlayLaterContext';
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import VideoListScreen from './screens/VideoListScreen';
@@ -34,34 +35,36 @@ function StackNavigator() {
 
 export default function App() {
   return (
-    <NavigationContainer>
-      <Drawer.Navigator
-        options={{
-          headerShown: true,
-        }}
-      >
-        <Drawer.Screen
-          name='VideoBrowser'
-          component={StackNavigator}
+    <PlayLaterContextProvider>
+      <NavigationContainer>
+        <Drawer.Navigator
           options={{
-            title: 'Video Browser',
-            drawerIcon: ({ color, size }) => (
-              <Ionicons name='videocam' color={color} size={size} />
-            ),
+            headerShown: true,
           }}
-        />
-        <Drawer.Screen
-          name='WatchLater'
-          component={WatchLaterScreen}
-          options={{
-            title: 'Watch Later Videos',
-            drawerIcon: ({ color, size }) => (
-              <Ionicons name='time' color={color} size={size} />
-            ),
-          }}
-        />
-      </Drawer.Navigator>
-    </NavigationContainer>
+        >
+          <Drawer.Screen
+            name='VideoBrowser'
+            component={StackNavigator}
+            options={{
+              title: 'Video Browser',
+              drawerIcon: ({ color, size }) => (
+                <Ionicons name='videocam' color={color} size={size} />
+              ),
+            }}
+          />
+          <Drawer.Screen
+            name='WatchLater'
+            component={WatchLaterScreen}
+            options={{
+              title: 'Watch Later Videos',
+              drawerIcon: ({ color, size }) => (
+                <Ionicons name='time' color={color} size={size} />
+              ),
+            }}
+          />
+        </Drawer.Navigator>
+      </NavigationContainer>
+    </PlayLaterContextProvider>
   );
 }
 
